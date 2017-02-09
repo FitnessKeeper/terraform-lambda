@@ -75,7 +75,7 @@ def remote_config_terraform(s3_bucket):
 
 
 def remote_push_terraform():
-    """Push cached remote state
+    """Push cached state to configured remote
     """
     check_call([TERRAFORM_PATH, 'remote', 'push'])
 
