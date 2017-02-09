@@ -57,6 +57,22 @@ def install_terraform():
     check_call([TERRAFORM_PATH, '--version'])
 
 
+def remote_config_terraform(s3_bucket):
+    """Configure terraform to use remote state
+
+    :param s3_bucket: Name of the S3 bucket where the state is stored.
+
+    """
+    check_call([
+        TERRAFORM_PATH,
+        'remote', 'config',
+        '-backend=S3',
+        '-backend-config="bucket={0}"'.format(s3_bucket),
+        '-backend-config="key=terraform.tfstate'
+        '-backend-config="region=eu-west-1"'
+    ])
+
+
 def apply_terraform_plan(s3_bucket, path):
     """Download a Terraform plan from S3 and run a 'terraform apply'.
 
@@ -77,4 +93,5 @@ def handler(event, context):
     path = event['Records'][0]['s3']['object']['key']
 
     install_terraform()
+    remote_config_terraform(s3_bucket=s3_bucket)
     apply_terraform_plan(s3_bucket=s3_bucket, path=path)
