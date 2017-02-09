@@ -68,9 +68,9 @@ def remote_config_terraform(s3_bucket):
         TERRAFORM_PATH,
         'remote', 'config',
         '-backend=S3',
-        '-backend-config="bucket={0}"'.format(s3_bucket),
-        '-backend-config="key=terraform.tfstate"',
-        '-backend-config="region=eu-west-1"'
+        '-backend-config', 'bucket={0}'.format(s3_bucket),
+        '-backend-config', 'key=terraform.tfstate',
+        '-backend-config', 'region=eu-west-1'
     ])
 
 
