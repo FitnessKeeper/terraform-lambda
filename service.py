@@ -74,6 +74,12 @@ def remote_config_terraform(s3_bucket):
     ])
 
 
+def remote_push_terraform():
+    """Push cached remote state
+    """
+    check_call([TERRAFORM_PATH, 'remote', 'push'])
+
+
 def apply_terraform_plan(s3_bucket, path):
     """Download a Terraform plan from S3 and run a 'terraform apply'.
 
@@ -96,3 +102,4 @@ def handler(event, context):
     install_terraform()
     remote_config_terraform(s3_bucket=s3_bucket)
     apply_terraform_plan(s3_bucket=s3_bucket, path=path)
+    remote_push_terraform()
