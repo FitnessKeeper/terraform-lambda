@@ -24,7 +24,8 @@ def check_call(args):
     """Wrapper for subprocess that checks if a process runs correctly,
     and if not, prints stdout and stderr.
     """
-    proc = subprocess.Popen(args,
+    proc = subprocess.Popen(
+        args,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         cwd='/tmp')
